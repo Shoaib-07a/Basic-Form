@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> FORM</title>
+  <link rel="icon" href="favicon.png.png" type="image/png">
+    <style>
+     /* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #e0f7fa, #f5f5f5);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+form {
+  background: #fff;
+  padding: 25px;
+  border-radius: 20px;
+  margin-top: 35px;
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+  animation: fadeIn 0.8s ease;
+}
+
+form:hover {
+  transform: translateY(-3px);
+}
+
+form div {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #333;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #0288d1;
+  box-shadow: 0 0 8px rgba(2, 136, 209, 0.4);
+  transform: scale(1.02);
+  outline: none;
+}
+
+textarea {
+  resize: none;
+  height: 80px;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.checkbox-wrapper input {
+  width: auto;
+  transform: scale(1.2);
+  accent-color: #0288d1;
+}
+
+/* Buttons */
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #0288d1, #00acc1);
+  color: #fff;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: all 0.4s ease;
+}
+
+button:hover::before {
+  left: 100%;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  position: absolute;
+  top: 10px;   /* isse toggle form se upar uth jayega */
+  right: 20px; /* right side pe properly align */
+  z-index: 1000; /* ensure ki form ke upar rahe */
+}
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: #ccc;
+  border-radius: 50px;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background: #0288d1;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* Dark Mode */
+body.dark {
+  background: #121212;
+  color: #eee;
+}
+
+body.dark form {
+  background: #1e1e1e;
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+}
+
+body.dark input,
+body.dark select,
+body.dark textarea {
+  background: #2c2c2c;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+body.dark label {
+  color: #eee;
+}
+
+body.dark button {
+  background: linear-gradient(135deg, #00acc1, #0288d1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  form {
+    padding: 18px;
+    max-width: 100%;
+  }
+  button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+    </style>
+      
+</head>
+
+<body>
+    <div class="theme-toggle">
+        <label class="switch">
+            <input type="checkbox" id="toggleTheme">
+            <span class="slider round"></span>
+        </label>
+
+<div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('myForm');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // stop default form submission
+
+        // Open thank you page in new tab
+        let newTab = window.open('thankyou.html', '_blank');
+
+        // If pop-up blocked, alert the user
+        if (!newTab || newTab.closed || typeof newTab.closed == 'undefined') {
+            alert("Pop-up blocked! Please allow pop-ups to see the Thank You page.");
+        }
+
+        // Optional: reset form
+        form.reset();
+    });
+});
+
+       // Dark/Light Mode Toggle
+const toggle = document.getElementById("toggleTheme");
+const body = document.body;
+
+toggle.addEventListener("change", () => {
+  body.classList.toggle("dark");
+});
+
+    </script>
+    
+</div>
+    </div>
+
+    </div>
+
+    <form action="thankyou.html" target="blank" method="GET">
+        <div>
+            <label for="Name">Name</label>
+            <input id="Name" type="text" placeholder="Enter your Name" required>
+        </div>
+        <div>
+            <label for="phone">Phone number</label>
+            <input id="phone" type="tel" placeholder="Phone Number" required>
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input id="email" type="text" placeholder="Email ID" required>
+        </div>
+        <div>
+            <label for="dob">D.O.B</label>
+            <input id="dob" type="date" placeholder="D.O.B" required>
+        </div>
+        <div>
+            <div>
+    <label for=\"gender\">Gender</label>
+    <select id=\"gender\" required>
+        <option value=\"\" disabled selected>Select gender</option>
+        <option value=\"Male\">Male</option>
+        <option value=\"Female\">Female</option>
+        <option value=\"Other\">Other</option>
+    </select>
+</div>
+
+        </div>
+        <div>
+            <label for="address">Address</label>
+            <textarea id="address" name="address" placeholder="Address" required></textarea>
+
+            <div>
+                <label for="City">City</label>
+                <input id="City" type="text" placeholder="City" required>
+            </div>
+            <div>
+                <label for="state">State:</label>
+                <input type="text" id="state" name="state" placeholder="Enter your state" required><br><br>
+            </div>
+            <div>
+                <label for="pincode">Pincode / ZIP:</label>
+                <input type="number" id="pincode" name="pincode" placeholder="Enter pincode" required><br><br>
+                <div>
+                    <label for="country">Country:</label>
+                    <select id="country" name="country" required>
+                        <option value="">--Select Country--</option>
+                        <option value="india">India</option>
+                        <option value="usa">USA</option>
+                        <option value="uk">UK</option>
+                        <option value="canada">Canada</option>
+                        <option value="australia">Australia</option>
+                        <option value="china">China</option>
+                        <option value="japan">Japan</option>
+                        <option value="indonesia">Indonesia</option>
+                        <option value="bangladesh">Bangladesh</option>
+                        <option value="russia">Russia</option>
+                        <option value="turkey">Turkey</option>
+                        <option value="thailand">Thailand</option>
+                        <option value="sa">South Africa</option>
+                        <option value="singapore">Singapore</option>
+                        <option value="germany">Germany</option>
+                        <option value="brazil">Brazil</option>
+                    </select><br><br>
+                </div>
+                <div>
+                    <label for="photo">Upload Profile Photo:</label><br>
+                    <input type="file" id="photo" name="photo" accept="image/*" required><br><br>
+                </div>
+                <div>
+  <label for="id_proof_type">Select ID Proof:</label>
+  <select id="id_proof_type" name="id_proof_type" required>
+    <option value="" disabled selected>Select your ID Proof</option>
+    <option value="aadhaar">Aadhaar Card</option>
+    <option value="driving_license">Driving License</option>
+    <option value="passport">Passport</option>
+  </select>
+</div>
+
+<div>
+  <label for="id_proof_file">Upload ID Proof Photo:</label>
+  <input type="file" id="id_proof_file" name="id_proof_file" accept="image/*" required>
+</div>
+
+            
+<div class="checkbox-wrapper">
+  <label class="checkbox-label">
+    <input type="checkbox" id="terms" name="terms" required>
+    <span>I agree to the <a href="#" target="_blank">Terms & Conditions</a></span>
+  </label>
+</div>
+            <div class="form-buttons">
+                <button type="submit"> Submit </button>
+                <button type="reset"> Reset </button>
+                <button type="cancel"> Cancel </button>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
